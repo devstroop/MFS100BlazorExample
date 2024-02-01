@@ -1,0 +1,142 @@
+<RadzenCard>
+    <RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="Radzen.AlignItems.Center">
+            <RadzenText Text="Device Info" Style="font-weight: bolder;" TextStyle="Radzen.Blazor.TextStyle.DisplayH4" />
+            <RadzenButton Click="@OnGetInfoClicked" Icon="search" />
+        </RadzenStack>
+        <RadzenStack>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Device" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.Make) && !String.IsNullOrEmpty(DeviceInfo?.Model))
+                    {
+                        <RadzenText Text="@($"{DeviceInfo?.Make} ({DeviceInfo?.Model})")" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Serial" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.SerialNo))
+                    {
+                        <RadzenText Text="@DeviceInfo?.SerialNo" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+
+        </RadzenStack>
+        <RadzenStack>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Certificate" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.Certificate))
+                    {
+                        <RadzenText Text="@DeviceInfo?.Certificate" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="System ID" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.SystemID))
+                    {
+                        <RadzenText Text="@DeviceInfo?.SystemID" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenStack>
+        <RadzenStack>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Size" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (DeviceInfo?.Width != null && DeviceInfo?.Height != null)
+                    {
+                        <RadzenText Text="@($"{DeviceInfo?.Width}x{DeviceInfo?.Height}")" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Mac Address" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.LocalMac))
+                    {
+                        <RadzenText Text="@DeviceInfo?.LocalMac" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Local IP" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.LocalIP))
+                    {
+                        <RadzenText Text="@DeviceInfo?.LocalIP" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenColumn Size="4">
+                    <RadzenText Text="Public IP" />
+                </RadzenColumn>
+                <RadzenColumn Size="8">
+                    @if (!String.IsNullOrEmpty(DeviceInfo?.PublicIP))
+                    {
+                        <RadzenText Text="@DeviceInfo?.PublicIP" Style="font-weight: bolder;" />
+                    }
+                    else
+                    {
+                        <RadzenText Text="N/A" Style="font-weight: bolder;" />
+                    }
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenStack>
+    </RadzenStack>
+</RadzenCard>
+@code {
+    [Parameter]
+    public Models.MFS100.DeviceInfo DeviceInfo { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnGetInfoClicked { get; set; }
+}

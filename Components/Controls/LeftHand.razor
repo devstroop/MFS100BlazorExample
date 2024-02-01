@@ -1,0 +1,14 @@
+
+<RadzenStack AlignItems="AlignItems.Center" Style="@Style" id="leftHand">
+    @ChildContent
+    <img src="/vectors/left-hand.svg" width="300" height="300" class="img-fluid" />
+    <RadzenText Text="L" Style="font-weight: bolder;" TextStyle="TextStyle.DisplayH2" />
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Style { get; set; }
+
+}

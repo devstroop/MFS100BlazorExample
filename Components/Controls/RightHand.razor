@@ -1,0 +1,17 @@
+﻿
+<RadzenStack AlignItems="AlignItems.Center" Style="@Style" id="rightHand">
+    @ChildContent
+    <img src="/vectors/right-hand.svg" width="300" height="300" class="img-fluid" />
+    <RadzenText Text="R" Style="font-weight: bolder;" TextStyle="TextStyle.DisplayH2" />
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Style { get; set; }
+
+}
+
+
+<!-- Path: Components/Controls/RightHand.razor -->

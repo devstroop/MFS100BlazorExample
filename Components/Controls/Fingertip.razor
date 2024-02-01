@@ -1,0 +1,78 @@
+﻿<RadzenStack>
+    @if (!String.IsNullOrEmpty(Fingerprint))
+    {
+        <RadzenButton Icon="clear" Click="@Clear" Variant="Variant.Text" />
+    }
+    <RadzenStack Style="@GetFingertipStyle()" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+        <RadzenStack Orientation="Orientation.Horizontal">
+            @if (String.IsNullOrEmpty(Fingerprint))
+            {
+                <RadzenButton Icon="camera" Click="@Capture" Variant="Variant.Text" Visible="@(String.IsNullOrEmpty(Fingerprint))" />
+            }
+        </RadzenStack>
+        <img src="@Fingerprint" class="img-fluid" />
+    </RadzenStack>
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public string Fingerprint { get; set; }
+    [Parameter]
+    public int Width { get; set; } = 75;
+    [Parameter]
+    public int Height { get; set; } = 85;
+    [Parameter]
+    public string Border { get; set; } = "solid 2px red";
+    [Parameter]
+    public int X { get; set; } = 0;
+    [Parameter]
+    public int Y { get; set; } = 0;
+
+    private string GetFingertipStyle()
+    {
+        int positionX = X;
+        int positionY = Y;
+
+        return $"width: {Width}px; height: {Height}px; border:{Border}; position: absolute; top: {positionY}px; left: {positionX}px;";
+    }
+
+    protected async Task Capture()
+    {
+        try
+        {
+            Models.MFS100.CaptureResponse captureRes = await JSRuntime.InvokeAsync<Models.MFS100.CaptureResponse>("CaptureFinger", 65, 10);
+            if (captureRes != null && captureRes.HttpStaus)
+            {
+                Fingerprint = $"data:image/png;base64,{captureRes.Data.BitmapData}";
+            }
+            else
+            {
+                NotificationService.Notify(NotificationSeverity.Error, $"Error {captureRes.Data.ErrorCode}", $"{captureRes.Data.ErrorDescription}");
+            }
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(NotificationSeverity.Error, $"Error", $"{ex.Message}");
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    protected async Task Clear()
+    {
+        Fingerprint = null;
+        StateHasChanged();
+
+    }
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; }
+
+    [Inject]
+    protected NotificationService NotificationService { get; set; }
+}
+
+
+<!-- Path: Components/Controls/Fingertip.razor -->

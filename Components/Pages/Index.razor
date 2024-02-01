@@ -1,0 +1,45 @@
+@layout MenuLayout
+@page "/"
+<PageTitle>Index</PageTitle>
+<RadzenStack>
+
+    <RadzenRow>
+        <RadzenColumn SizeMD="4">
+            <RadzenStack>
+                <MFS100Example.Components.Controls.DeviceInfoCard DeviceInfo="@DeviceInfo" OnGetInfoClicked="@GetInfoClicked" />
+                @* <RadzenButton Text="Capture" Click="@CaptureClicked" /> *@
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn SizeMD="8">
+            <RadzenRow>
+                <RadzenColumn SizeMD="6">
+                    <RadzenStack AlignItems="AlignItems.Center">
+                        <MFS100Example.Components.Controls.LeftHand Style="position: relative; padding-top: 100px;">
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@LF1" X="-30" Y="180" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@LF2" X="40" Y="40" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@LF3" X="125" Y="5" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@LF4" X="210" Y="30" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@LF5" X="295" Y="90" />
+                        </MFS100Example.Components.Controls.LeftHand>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn SizeMD="6">
+                    <RadzenStack AlignItems="AlignItems.Center">
+                        <MFS100Example.Components.Controls.RightHand Style="position: relative; padding-top: 100px;">
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@RF1" X="-65" Y="90" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@RF2" X="15" Y="30" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@RF3" X="100" Y="5" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@RF4" X="185" Y="40" />
+                            <MFS100Example.Components.Controls.Fingertip Fingerprint="@RF5" X="270" Y="180" />
+                        </MFS100Example.Components.Controls.RightHand>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenColumn>
+    </RadzenRow>
+
+
+</RadzenStack>
+
+
+<!-- Path: Components/Pages/Index.razor -->
