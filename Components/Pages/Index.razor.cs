@@ -49,28 +49,42 @@ namespace MFS100Example.Components.Pages
 
         protected async Task GetInfoClicked(MouseEventArgs args)
         {
-            var response = await JSRuntime.InvokeAsync<DeviceInfoResponse>("GetMFS100Info");
-            if (response != null && response.HttpStaus)
+            try
             {
-                DeviceInfo = response.Data.DeviceInfo;
+                var response = await JSRuntime.InvokeAsync<DeviceInfoResponse>("GetMFS100Info");
+                if (response != null && response.HttpStaus)
+                {
+                    DeviceInfo = response.Data.DeviceInfo;
+                }
+                else
+                {
+                    NotificationService.Notify(NotificationSeverity.Error, $"Error {response.Data.ErrorCode}", $"{response.Data.ErrorDescription}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                NotificationService.Notify(NotificationSeverity.Error, $"Error {response.Data.ErrorCode}", $"{response.Data.ErrorDescription}");
+                NotificationService.Notify(NotificationSeverity.Error, "Error", ex.Message);
             }
 
         }
 
         protected async Task CaptureClicked(MouseEventArgs args)
         {
-            CaptureResponse captureRes = await JSRuntime.InvokeAsync<CaptureResponse>("CaptureFinger", 65, 10);
-            if (captureRes != null && captureRes.HttpStaus)
+            try
             {
-                LF1 = $"data:image/png;base64,{captureRes.Data.BitmapData}";
+                CaptureResponse captureRes = await JSRuntime.InvokeAsync<CaptureResponse>("CaptureFinger", 65, 10);
+                if (captureRes != null && captureRes.HttpStaus)
+                {
+                    LF1 = $"data:image/png;base64,{captureRes.Data.BitmapData}";
+                }
+                else
+                {
+                    NotificationService.Notify(NotificationSeverity.Error, $"Error {captureRes.Data.ErrorCode}", $"{captureRes.Data.ErrorDescription}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                NotificationService.Notify(NotificationSeverity.Error, $"Error {captureRes.Data.ErrorCode}", $"{captureRes.Data.ErrorDescription}");
+                NotificationService.Notify(NotificationSeverity.Error, "Error", ex.Message);
             }
 
         }
