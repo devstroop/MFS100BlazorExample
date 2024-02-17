@@ -58,7 +58,7 @@ namespace MFS100Example.Components.Pages
                 }
                 else
                 {
-                    NotificationService.Notify(NotificationSeverity.Error, $"Error {response.Data.ErrorCode}", $"{response.Data.ErrorDescription}");
+                    NotificationService.Notify(NotificationSeverity.Error, $"Error {response?.Data?.ErrorCode}", $"{response?.Data?.ErrorDescription}");
                 }
             }
             catch (Exception ex)
